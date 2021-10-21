@@ -31,4 +31,7 @@ jobs:
         # Container registry password
         password: ${{ secrets.ACR_PASSWORD}}  
         # Container registry server url
-        login-server: ${{ secrets.ACR_SERVER}} 
+        login-server: ${{ secrets.ACR_SERVER}}
+    - run: |
+        docker needs: build -f src/Web/Dockerfile .-t ${{ secrets.ACR_SERVER }}/eshop:${{ github.run_id }}
+        docker push ${{secrets.ACR_SERVER}}/eshop:${{ github.run_id }}
